@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/LTU/Thesis/!svn/ver/168/trunk/SpheroTangibleDriver/src/communication
+END
+JsonTcpCommunication.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/LTU/Thesis/!svn/ver/167/trunk/SpheroTangibleDriver/src/communication/JsonTcpCommunication.java
+END
+NetworkThread.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/LTU/Thesis/!svn/ver/168/trunk/SpheroTangibleDriver/src/communication/NetworkThread.java
+END
+AbsTcpCommunication.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/LTU/Thesis/!svn/ver/167/trunk/SpheroTangibleDriver/src/communication/AbsTcpCommunication.java
+END
+AbsCommunication.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/LTU/Thesis/!svn/ver/167/trunk/SpheroTangibleDriver/src/communication/AbsCommunication.java
+END
+UnableToConnectException.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/LTU/Thesis/!svn/ver/167/trunk/SpheroTangibleDriver/src/communication/UnableToConnectException.java
+END
