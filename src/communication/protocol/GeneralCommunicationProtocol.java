@@ -27,7 +27,7 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 
 		_readerThread = new JsonReaderThread();
 	}
-	
+
 	public void start()
 	{
 		_readerThread.start();
@@ -35,6 +35,7 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 
 	private class JsonReaderThread extends Thread
 	{
+		private InputStreamReader in;
 		private boolean stop = false;
 
 		public void stopThread()
@@ -49,7 +50,7 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 
 			int read = -1;
 			char[] buffer = new char[ 4096 ];
-			InputStreamReader in = null;
+			in = null;
 			try
 			{
 				in = new InputStreamReader( getSocket().getInputStream(), "UTF-8" );
@@ -90,10 +91,14 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 						public void run()
 						{
 							JsonReaderThread.this.stopThread();
+
 							try
 							{
+								if( JsonReaderThread.this.in != null )
+									JsonReaderThread.this.in.close();
+
 								// Force thread interruption
-//								GeneralCommunicationProtocol.this.notifyAll();
+								// GeneralCommunicationProtocol.this.notifyAll();
 								JsonReaderThread.this.notifyAll();
 							}
 							catch( Exception e )
@@ -139,7 +144,7 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 		{
 			return element.getAsJsonObject().get( "flow" ).getAsString();
 		}
-		
+
 		private void handleEventMessage( JsonElement msg )
 		{
 			info( "The following message was received << " + msg + " >>" );
@@ -167,7 +172,7 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 			// Can't touch this... ;)
 		}
 	}
-	
+
 	private void info( String msg )
 	{
 		Logger.getLogger( this.getClass().getCanonicalName() ).log( Level.INFO, msg );

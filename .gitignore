@@ -1,6 +1,14 @@
-.svn/**/*
 .svn
 .svn/*
+.svn/**/*
+*/.svn
+*/.svn/*
+*/.svn/**/*
+*/**/.svn
+*/**/.svn/*
+*/**/.svn/**/*
+lib/.svn
+lib/.svn/*
 build/
 dist/
 bin/
