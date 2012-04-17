@@ -98,7 +98,6 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 									JsonReaderThread.this.in.close();
 
 								// Force thread interruption
-								// GeneralCommunicationProtocol.this.notifyAll();
 								JsonReaderThread.this.notifyAll();
 							}
 							catch( Exception e )
@@ -120,7 +119,7 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 
 		private void handleMessage( JsonElement element )
 		{
-			Logger.getLogger( this.getClass().getCanonicalName() ).log( Level.INFO, "handling message " + element );
+			info( "Handling message " + element );
 
 			String msgType = getMessageType( element );
 
@@ -154,22 +153,20 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 			{
 				ColorCommandParameters params = _gson.fromJson( cmdMsg.msg.params, ColorCommandParameters.class );
 
-				Color c = new Color( params.color.r, params.color.g, params.color.b );
+				Color to = new Color( params.color.r, params.color.g, params.color.b );
 				List<Sphero> devices = AppManagerImpl.getInstance().availableSpheros();
 				for( String sphero : params.devices )
 				{
-					for( Sphero device : devices )
-					{
+					for( final Sphero device : devices )
 						if( device.getId().equals( sphero ) )
-							device.setRGBLedColor( c );
-					}
+							device.setRGBLedColor( to );
 				}
 			}
 		}
 
 		private void handleCtrlMessage( JsonElement msg )
 		{
-			// Can't touch this... ;)
+			info( "Received ctrl message: " + msg );
 		}
 	}
 

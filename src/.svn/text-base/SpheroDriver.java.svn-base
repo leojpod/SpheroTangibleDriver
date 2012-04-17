@@ -25,6 +25,12 @@ public class SpheroDriver extends Thread implements BluetoothDiscoveryListener
 	private List<Sphero> _availableSpheroDevices;
 	private Bluetooth bt;
 
+	public static void main( String[] args ) throws UnknownHostException, IOException
+	{
+		SpheroDriver sd = new SpheroDriver();
+		sd.start();
+	}
+	
 	public SpheroDriver()
 	{
 	}
@@ -92,12 +98,6 @@ public class SpheroDriver extends Thread implements BluetoothDiscoveryListener
 	private void registerApplication()
 	{
 		_appMgr.setupAppManager( _availableSpheroDevices, "DefaultApp" );
-	}
-
-	public static void main( String[] args ) throws UnknownHostException, IOException
-	{
-		SpheroDriver sd = new SpheroDriver();
-		sd.start();
 	}
 
 	@Override
