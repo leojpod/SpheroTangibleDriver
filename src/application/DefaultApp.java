@@ -33,7 +33,7 @@ public class DefaultApp extends Application
 		List<Sphero> spheroSet = _appMgr.getAvailableSpheros();
 		for( Sphero s : spheroSet )
 		{
-			s.setRGBLedColor( Color.GREEN );
+			s.setRGBLedColor( Color.PINK );
 			s.setFrontLEDBrightness( 0 );
 			
 			Logger.getLogger( this.getClass().getCanonicalName() ).log( Level.INFO, "Running setupDefaultApp with Sphero device " + s.getId() );

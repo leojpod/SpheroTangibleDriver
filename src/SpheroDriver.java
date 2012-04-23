@@ -116,7 +116,7 @@ public class SpheroDriver extends Thread implements BluetoothDiscoveryListener
 						// Connected
 						Logger.getLogger( this.getClass().getCanonicalName() ).log( Level.INFO, "Connected to Sphero device " + s.getId() + "(" + s.getAddress() + ")" );
 						_availableSpheroDevices.add( s );
-						System.out.println( btd.getConnectionURL() );
+//						System.out.println( btd.getConnectionURL() );
 					}
 				}
 				catch( Exception e )
