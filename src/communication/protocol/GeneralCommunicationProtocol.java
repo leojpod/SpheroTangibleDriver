@@ -1,5 +1,12 @@
 package communication.protocol;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonStreamParser;
+import communication.JsonTcpCommunication;
+import communication.protocol.messages.ColorCommandParameters;
+import communication.protocol.messages.CommandMessage;
+import driver.AppManagerImpl;
+import driver.Sphero;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,15 +14,6 @@ import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonStreamParser;
-
-import communication.JsonTcpCommunication;
-import communication.protocol.messages.ColorCommandParameters;
-import communication.protocol.messages.CommandMessage;
-import driver.AppManagerImpl;
-import driver.Sphero;
 
 public class GeneralCommunicationProtocol extends JsonTcpCommunication
 {
@@ -61,8 +59,9 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 					if( read > 0 )
 					{
 						JsonStreamParser parser = new JsonStreamParser( String.copyValueOf( buffer, 0, read ) );
-						while( parser.hasNext() )
+						while( parser.hasNext() ) {
 							handleMessage( parser.next() );
+						}
 					}
 					else
 					{
@@ -74,8 +73,9 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 			}
 			catch( Exception e )
 			{
-				if( in == null )
+				if( in == null ) {
 					this.stopThread();
+				}
 			}
 		}
 
@@ -94,8 +94,9 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 
 							try
 							{
-								if( JsonReaderThread.this.in != null )
+								if( JsonReaderThread.this.in != null ) {
 									JsonReaderThread.this.in.close();
+								}
 
 								// Force thread interruption
 								JsonReaderThread.this.notifyAll();
@@ -123,10 +124,12 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 
 			String msgType = getMessageType( element );
 
-			if( isEventMessage( msgType ) )
+			if( isEventMessage( msgType ) ) {
 				handleEventMessage( element );
-			else if( isCtrlMessage( msgType ) )
+			}
+			else if( isCtrlMessage( msgType ) ) {
 				handleCtrlMessage( element );
+			}
 		}
 
 		private boolean isCtrlMessage( String flow )
@@ -157,9 +160,22 @@ public class GeneralCommunicationProtocol extends JsonTcpCommunication
 				List<Sphero> devices = AppManagerImpl.getInstance().availableSpheros();
 				for( String sphero : params.devices )
 				{
-					for( final Sphero device : devices )
-						if( device.getId().equals( sphero ) )
+					for( final Sphero device : devices ) {
+						if( device.getId().equals( sphero ) ) {
 							device.setRGBLedColor( to );
+						}
+					}
+				}
+			} else if (cmdMsg.msg.command.equals("fade_color")) {
+				ColorCommandParameters params = _gson.fromJson(cmdMsg.msg.params, ColorCommandParameters.class);
+				Color c = new Color (params.color.r, params.color.g, params.color.b);
+				List<Sphero> devices = AppManagerImpl.getInstance().availableSpheros();
+				for (String id : params.devices) {
+					for( final Sphero dev : devices) {
+						if (dev.getId().equals(id)) {
+							dev.rgbBreath(c, Color.WHITE, 500, 2);
+						}
+					}
 				}
 			}
 		}

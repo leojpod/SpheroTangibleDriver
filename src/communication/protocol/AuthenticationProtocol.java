@@ -1,16 +1,14 @@
 package communication.protocol;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonSyntaxException;
+import communication.JsonTcpCommunication;
+import driver.AppManagerImpl;
+import driver.DriverInformation;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonSyntaxException;
-
-import communication.JsonTcpCommunication;
-import driver.AppManagerImpl;
-import driver.DriverInformation;
 
 public class AuthenticationProtocol extends JsonTcpCommunication
 {
